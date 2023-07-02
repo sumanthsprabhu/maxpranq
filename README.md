@@ -23,5 +23,5 @@ Collection of the SMT-LIB2 translations of the precondition inference tasks can 
 Running Evaluation of FMCAD'23 Submission
 ========================================
 
-You may run MaxPrANQ on all the benchmarks from `bench_precondn/fmcad_bench` by using the script `runall.sh`. To do this, set the full path of MaxPrANQ binary in `runall.sh`. Then, execute the command `bash runall.sh -f bench_precondn/fmcad_bench/fmcad_bench`. It should complete within few minutes. After completion, a summary of results along with the path of the log directory is displayed. The generated preconditions will be in `output/tty_benchmark_name` in the log directory.
+You may run MaxPrANQ on all the benchmarks from `bench_precondn/fmcad_bench` by running the script `bash runall.sh`. It should complete within a few minutes. After completion, a summary of results along with the path of the log directory is displayed. The generated preconditions for each benchmark will be in `output/tty_benchmark` in the log directory.
 

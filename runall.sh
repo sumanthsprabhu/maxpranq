@@ -8,12 +8,13 @@ export TIMEOUT="200s"
 export PARALLEL_JOBS=4
 
 #modify this to the path of MaxPrANQ
-export MAXPRANQ_BIN="/home/u1392220/tmp/qspec/ws/maxpranq/build/tools/nonlin/maxpranq "
+export MAXPRANQ_BIN=$(pwd)"/build/tools/nonlin/maxpranq "
 export BIN=$MAXPRANQ_BIN" --max ";
 export FAILED_FILES=$LOG_PATH"/failed_files"
 export TIMING_FILE=$LOG_PATH"/timings"
 export IND_PATH=$LOG_PATH"/output"
 export TMPFILE=`mktemp` || exit 1
+export TMPFILE="bench_precondn/fmcad_bench/fmcad_bench"
 export CURFILEVAL=`mktemp` || exit 1
 export FAILEDFILEVAL=`mktemp` || exit 1
 export MAYNOTBEMAXIMAL_FILES=$LOG_PATH"/maynotbemaximal_files"
@@ -24,25 +25,6 @@ export OVERALL_RESULT_FILE_SORTED=$LOG_PATH"/overall_sorted.csv"
 export OVERALL_STATUS_FILE=$LOG_PATH"/overall_status.csv"
 export OVERALL_MD=$LOG_PATH"/last_commit_result.md"
 export RUN_MAX=1
-
-if [ -z "$MAXPRANQ_BIN" ]; then
-    echo "MAXPRANQ_BIN variable is not set in $(basename "$0"). Please set it to the path of MaxPrANQ and then continue."
-    exit 1
-fi
-
-if [ $# -ne 0 ]; then
-for arg in "$@"; do
-    case $arg in
-	--file-list|-f) TMPFILE="$2" ; shift 2 ;; #list contaning files names to run against
-	--input-file|-i) echo "$2" > $TMPFILE; shift 2 ;; #single file name to run against
-	--timeout|-t) TIMEOUT="$2"; shift 2 ;;
-    esac
-done
-else
-    echo "Usage: $(basename "$0") -f benchmark_list | -i file_name -m"
-    echo "Runs MaxPrANQ against files from benchmark_list"
-    exit 1
-fi
 
 
 mkdir $LOG_PATH
@@ -135,7 +117,7 @@ function parallel_runall()
     if [ "$RUN_MAX" -eq "0" ]; then
         echo  -ne "completed: $curfilecount/$totalfiles (failed: $failedfilecount)\r"
     else
-        echo  -ne "completed: $curfilecount/$totalfiles (failed: $failedfilecount, may not be maximal: $maynotbemaximalcount)\r"                
+        echo  -ne "completed: $curfilecount/$totalfiles (failed: $failedfilecount, mnbm: $maynotbemaximalcount)\r"                
     fi
     
 }
